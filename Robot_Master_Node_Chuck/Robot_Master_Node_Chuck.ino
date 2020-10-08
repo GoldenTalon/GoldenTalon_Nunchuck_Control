@@ -70,17 +70,22 @@ void setup() {
 
   payload.joy_x = nchuk.joyX();
 //  payload.joy_y = nchuk.joyY();
-//  Serial.println(payload.joy_x);
+  Serial.println(payload.chan);
 
-  boolean zButton = nchuk.buttonZ();
-  /*
-  if (zButton == true) {
+
+  int zButton = nchuk.buttonZ();
+  Serial.println(zButton);
+  if (nchuk.buttonZ()) {
       payload.chan++;
-      if(payload.chan <= 4){
+       Serial.println(payload.chan);
+
+      if(payload.chan >= 4){
         payload.chan = 0;
       }
+      Serial.println(nchuk.buttonZ());     
+      delay(250); //debounce
    }
-  */
+  
  
   if (!wirelessSPI.write(&payload, sizeof(payload))){  //send data and remember it will retry if it fails
     delay(random(5,10)); //as another back up, delay for a random amount of time and try again
